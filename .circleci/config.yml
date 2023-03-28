@@ -1,6 +1,7 @@
 version: 2.1
 setup: true
 orbs:
+  notify-slack: cloudify/notify-slack@volatile
   orb-tools: circleci/orb-tools@11.5
   shellcheck: circleci/shellcheck@3.1
   slack: circleci/slack@4.9.3
@@ -92,7 +93,11 @@ workflows:
             [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
           # Use a context to hold your publishing token.
           context: orb-publishing
-          filters: *filters
+          filters:
+            branches:
+              only:
+                - master 
+                - main
       # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
           pipeline-number: << pipeline.number >>
