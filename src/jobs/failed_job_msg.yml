@@ -1,7 +1,9 @@
 description: >
   Sample description
 # What will this job do?
-
+orbs:
+  slack: circleci/slack@4.9.3
+  
 executor: default
 
 steps:
