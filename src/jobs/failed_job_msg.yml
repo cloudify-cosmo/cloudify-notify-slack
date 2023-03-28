@@ -1,7 +1,6 @@
 description: >
   Sample description
 # What will this job do?
-
 executor: default
 
 steps:
@@ -66,4 +65,4 @@ steps:
               ]
             }
           ]
-        } 
+        }
