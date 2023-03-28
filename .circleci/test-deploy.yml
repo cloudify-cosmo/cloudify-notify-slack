@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  notify-slack: cloudify/notify-slack@dev:<<pipeline.git.revision>>
+  notify-slack: cloudify/notify-slack@1
   orb-tools: circleci/orb-tools@11.5
 
 filters: &filters
