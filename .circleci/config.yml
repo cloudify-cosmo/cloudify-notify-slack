@@ -1,7 +1,6 @@
 version: 2.1
 setup: true
 orbs:
-  notify-slack: cloudify/notify-slack@volatile
   orb-tools: circleci/orb-tools@11.5
   shellcheck: circleci/shellcheck@3.1
   slack: circleci/slack@4.9.3
@@ -9,71 +8,6 @@ orbs:
 filters: &filters
   tags:
     only: /.*/
-
-slack-fail-post-step: &slack-fail-post-step
-  post-steps:
-    - slack/notify:
-        event: fail
-        custom: |
-          {
-            "text" : "CircleCI job failed.",
-            "blocks": [
-              {
-                "type": "header",
-                "text": {
-                  "type": "plain_text",
-                  "text": "Job Failed. :red_circle:",
-                  "emoji": true
-                }
-              },
-              {
-                "type": "section",
-                "fields": [
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Job*: ${CIRCLE_JOB}"
-                  }
-                ]
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*Project*: ${CIRCLE_PROJECT_REPONAME}"
-                }
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*Branch*: ${CIRCLE_BRANCH}"
-                }
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*Author*: ${CIRCLE_USERNAME}"
-                }
-              },
-              {
-                "type": "divider"
-              },
-              {
-                "type": "actions",
-                "elements": [
-                  {
-                    "type": "button",
-                    "text": {
-                      "type": "plain_text",
-                      "text": "View Job"
-                    },
-                    "url": "${CIRCLE_BUILD_URL}"
-                  }
-                ]
-              }
-            ]
-          } 
 
 workflows:
   lint-pack:
@@ -93,11 +27,7 @@ workflows:
             [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
           # Use a context to hold your publishing token.
           context: orb-publishing
-          filters:
-            branches:
-              only:
-                - master 
-                - main
+          filters: *filters
       # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
           pipeline-number: << pipeline.number >>
