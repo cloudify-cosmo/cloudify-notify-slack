@@ -14,8 +14,6 @@ workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - notify-slack/failed_job_msg:
-          context: slack-secrets
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -23,7 +21,6 @@ workflows:
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
-            - notify-slack/failed_job_msg
             - orb-tools/pack
           context: orb-publishing
           filters:
