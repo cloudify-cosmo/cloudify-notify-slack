@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  notify-slack: cloudify/notify-slack@volatile
+  notify-slack: cloudify/notify-slack@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.5
 
 filters: &filters
@@ -35,8 +35,8 @@ workflows:
           context: orb-publishing
           filters:
             branches:
-              ignore: /.*/
-            tags:
-              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
+              only:
+                - master
+                - main
 
 # VS Code Extension Version: 1.4.0
