@@ -1,0 +1,7 @@
+description: >
+  This job notify slack with failed job status.
+# What will this job do?
+executor: default
+
+steps:
+  - notify_failed

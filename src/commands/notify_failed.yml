@@ -1,8 +1,5 @@
 description: >
-  Sample description
-# What will this job do?
-executor: default
-
+  This command notify slack with failed job status.
 steps:
   - slack/notify:
       event: fail
@@ -66,3 +63,5 @@ steps:
             }
           ]
         }
+
+
